@@ -1,0 +1,9 @@
+#+title: arch-packages
+
+随缘打包一些工具
+
+** How to
+1. Work on arch-base linux
+2. ~cd~ package directory
+3. ~makepkg -si~
+4. Enjoy!
