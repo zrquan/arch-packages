@@ -1,0 +1,46 @@
+# Maintainer: 4shen0ne <4shen.01@gmail.com>
+
+pkgname=burpsuite-pro-cracked
+_appname=burpsuite
+# echo $(curl -s https://portswigger.net/burp/releases) | grep -Po '(?<=/burp/releases/professional-community-)[0-9]+\-[0-9]+\-[0-9]+' | head -n 1 | sed 's/-/\./g'
+pkgver=2024.3.1
+pkgrel=1
+pkgdesc="An integrated platform for performing security testing of web applications (professional edition)"
+url="https://portswigger.net/burp/"
+depends=('java-runtime>=21')
+provides=('burpsuite-pro')
+conflicts=('burpsuite-pro')
+arch=('any')
+license=('custom')
+noextract=(
+  "${_appname}-pro-v${pkgver}.jar"
+  "loader.jar"
+)
+source=(
+  "${_appname}-pro-v${pkgver}.jar::https://portswigger-cdn.net/burp/releases/download?product=pro&version=&type=jar"
+  loader.jar
+  BurpSuite.desktop
+  LICENSE
+)
+sha256sums=(
+  '02393339ff25af0434479877fb0dfbfaa6dbf5e21c6e854c28ddf943830b9f15'
+  '1e288c686963eafc34411d4f94265eb1809492ab57a474848669eb3285a2afb3'
+  '2d7e8febf1a39c73403f2b4698b7194bf5b7b09d99b22c17b95dea22efef85ff'
+  '6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e'
+)
+
+package() {
+  mkdir -p ${pkgdir}/usr/bin
+  mkdir -p ${pkgdir}/usr/share/{applications,${_appname},licenses/${_appname}}
+
+  cd ${srcdir}
+  install -m644 loader.jar ${pkgdir}/usr/share/${_appname}/
+  install -m644 ${_appname}-pro-v${pkgver}.jar ${pkgdir}/usr/share/${_appname}/
+  install -m644 BurpSuite.desktop ${pkgdir}/usr/share/applications/
+  install -m644 LICENSE ${pkgdir}/usr/share/licenses/${_appname}/
+
+  # Create startup file for burpsuite.
+  echo "#!/bin/sh" > ${pkgdir}/usr/bin/${_appname}
+  echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/usr/share/${_appname}/loader.jar -noverify -jar /usr/share/${_appname}/${_appname}-pro-v${pkgver}.jar &" > ${pkgdir}/usr/bin/${_appname}
+  chmod 755 ${pkgdir}/usr/bin/${_appname}
+}

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Comment=The class-leading vulnerability scanning, penetration testing, and web app security platform
+Exec=sh /usr/bin/burpsuite
+GenericName=
+Icon=burpsuite
+Name=BurpSuite
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
