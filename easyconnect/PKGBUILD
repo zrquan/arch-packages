@@ -1,0 +1,85 @@
+# Maintainer: zxp19821005 <zxp19821005 at 163 dot com>
+# Contributor: arthur_0 <maxc@stateoftheart.pw>
+# Contributor: attenuation <ouyangjun1999@gmail.com>
+pkgname=easyconnect
+_pkgname=EasyConnect
+pkgver=7.6.3.7
+_electronversion=2
+pkgrel=1
+_pangover=1.0
+pkgdesc="Support access to ssl vpn. With easyconect,you can secure and speed up connection to cooperate network at ease!"
+arch=('x86_64')
+url="http://www.sangfor.com.cn"
+license=('custom')
+conflicts=(
+    "${pkgname}"
+    "${pkgname}-rpc"
+    "${pkgname}-zjjy"
+    "${pkgname}-sdu"
+    "${pkgname}-cas"
+)
+depends=(
+    'dbus-glib'
+    'libxrender'
+    'nss'
+    'libxext'
+    'libxcursor'
+    'expat'
+    'sqlite'
+    'gtk2'
+    'harfbuzz'
+    'libxi'
+    'libcups'
+    'libx11'
+    'cairo'
+    'at-spi2-core'
+    'libxcomposite'
+    'fontconfig'
+    'pango'
+    'fribidi'
+    'libxtst'
+    'libxrandr'
+    'libxdamage'
+    'gdk-pixbuf2'
+    'libxft'
+    'libxcb'
+    'libxfixes'
+    'nspr'
+    'alsa-lib'
+    'libthai'
+    'freetype2'
+)
+makedepends=(
+    'gobject-introspection'
+    'unzip'
+)
+install="${pkgname}.install"
+source=(
+    "${pkgname}-${pkgver}.deb::https://download.sangfor.com.cn/download/product/sslvpn/pkg/linux_01/${_pkgname}_x64.deb"
+    "libpango-${_pangover}.zip"
+    "LICENSE"
+    "${pkgname%-bin}.sh"
+)
+sha256sums=('2b220c37f769510a538a0510de852dcd2ca27a4277372ab816ae30f27729b35f'
+            'f9c0964a79c4d126838eae571ce074513200b2acae3dd4d8cbc01beefc14cb97'
+            'b4b0db5e577c1b565a7f065ce8f9a4f9622b673fbcffa27ccbaf68f061a67a68'
+            'ef6b9125a73803152843f25565b1c9ab65e0b1b2a92f8f8cc1d94ef1751b7ad8')
+build() {
+    sed -e "s|@appname@|sangfor|g" \
+        -e "s|@runpath@|${_pkgname}|g" \
+        -e "s|@runname@|${_pkgname}|g" \
+        -i "${srcdir}/${pkgname%-bin}.sh"
+    bsdtar -xf "${srcdir}/data.tar.gz"
+    unzip "${srcdir}/libpango-${_pangover}.zip" -d libpango
+    sed "s|/usr/share/sangfor/${_pkgname}/${_pkgname}|${pkgname%-bin}|g" -i "${srcdir}/usr/share/applications/${_pkgname}.desktop"
+}
+package() {
+    install -Dm755 "${srcdir}/${pkgname%-bin}.sh" "${pkgdir}/usr/bin/${pkgname%-bin}"
+    install -Dm644 "${srcdir}/etc/init/EasyMonitor.conf" -t "${pkgdir}/etc/init"
+    install -Dm644 "${srcdir}/usr/lib/systemd/system/EasyMonitor.service" -t "${pkgdir}/usr/lib/systemd/system"
+    install -Dm644 "${srcdir}/usr/share/applications/${_pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+    install -Dm644 "${srcdir}/usr/share/pixmaps/${_pkgname}.png" -t "${pkgdir}/usr/share/pixmaps"
+    cp -r "${srcdir}/usr/share/sangfor" "${pkgdir}/usr/share"
+    cp -r "${srcdir}/libpango" "${pkgdir}/usr/share/sangfor/${_pkgname}/lib"
+    install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
