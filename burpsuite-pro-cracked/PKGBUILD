@@ -3,8 +3,8 @@
 pkgname=burpsuite-pro-cracked
 _appname=burpsuite
 # echo $(curl -s https://portswigger.net/burp/releases) | grep -Po '(?<=/burp/releases/professional-community-)[0-9]+\-[0-9]+\-[0-9]+' | head -n 1 | sed 's/-/\./g'
-pkgver=2024.3.1
-pkgrel=2
+pkgver=2024.5.3
+pkgrel=1
 pkgdesc="An integrated platform for performing security testing of web applications (professional edition)"
 url="https://portswigger.net/burp/"
 depends=('java-runtime>=21')
@@ -23,7 +23,7 @@ source=(
   LICENSE
 )
 sha256sums=(
-  '12b704f257ca729837bb2c21f12d34802d561ac24744d2025e85cccba00d7b9f'
+  'd7e200966e22ad456a1851e52febcd64d74326bab766925d509606ad437672e6'
   '1e288c686963eafc34411d4f94265eb1809492ab57a474848669eb3285a2afb3'
   '2d7e8febf1a39c73403f2b4698b7194bf5b7b09d99b22c17b95dea22efef85ff'
   '6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e'
