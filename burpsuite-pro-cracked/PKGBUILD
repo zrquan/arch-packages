@@ -2,8 +2,8 @@
 
 pkgname=burpsuite-pro-cracked
 _appname=burpsuite
-# echo $(curl -s https://portswigger.net/burp/releases) | grep -Po '(?<=/burp/releases/professional-community-)[0-9]+\-[0-9]+\-[0-9]+' | head -n 1 | sed 's/-/\./g'
-pkgver=2024.8.4
+# https://portswigger.net/burp/releases#professional
+pkgver=2024.9.5
 pkgrel=1
 pkgdesc="An integrated platform for performing security testing of web applications (professional edition)"
 url="https://portswigger.net/burp/"
@@ -41,11 +41,11 @@ package() {
 
   # Create startup file for burpsuite.
   echo "#!/bin/sh" > ${pkgdir}/usr/bin/${_appname}
-  echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/usr/share/${_appname}/loader.jar -noverify -jar /usr/share/${_appname}/${_appname}-pro-v${pkgver}.jar &" > ${pkgdir}/usr/bin/${_appname}
+  echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/usr/share/${_appname}/loader.jar -noverify -jar /usr/share/${_appname}/${_appname}-pro-v${pkgver}.jar &" >> ${pkgdir}/usr/bin/${_appname}
   chmod 755 ${pkgdir}/usr/bin/${_appname}
 
   # Create startup file for debugging.
   echo "#!/bin/sh" > ${pkgdir}/usr/bin/${_appname}-debug
-  echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/usr/share/${_appname}/loader.jar -noverify -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar /usr/share/${_appname}/${_appname}-pro-v${pkgver}.jar &" > ${pkgdir}/usr/bin/${_appname}-debug
+  echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/usr/share/${_appname}/loader.jar -noverify -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar /usr/share/${_appname}/${_appname}-pro-v${pkgver}.jar &" >> ${pkgdir}/usr/bin/${_appname}-debug
   chmod 755 ${pkgdir}/usr/bin/${_appname}-debug
 }
