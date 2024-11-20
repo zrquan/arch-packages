@@ -1,0 +1,29 @@
+# Maintainer: 4shen0ne <4shen.01@gmail.com>
+
+pkgname=behinder
+pkgver=4.1.t00ls
+pkgrel=1
+pkgdesc="“冰蝎”动态二进制加密网站管理客户端"
+url="https://github.com/rebeyond/Behinder"
+depends=('java-runtime>=8')
+provides=('behinder')
+conflicts=('behinder')
+arch=('any')
+license=('unknown')
+source=("https://github.com/rebeyond/Behinder/releases/download/Behinder_v4.1%E3%80%90t00ls%E4%B8%93%E7%89%88%E3%80%91/Behinder_v4.1.t00ls.zip")
+sha256sums=('1e960d4c1c00fa308fe9da6bfb20764a379cb8cf4b874f2456d19982e6c688c2')
+
+package() {
+  install -d "${pkgdir}/usr/bin"
+  install -d "${pkgdir}/opt/${pkgname}"
+
+  cp -a --no-preserve=ownership * "${pkgdir}/opt/${pkgname}"
+
+  cat > "${pkgdir}/usr/bin/behinder" <<EOF
+#!/bin/sh
+cd /opt/${pkgname}
+GDK_SCALE=2 java -jar Behinder.jar
+EOF
+
+  chmod 755 "${pkgdir}/usr/bin/behinder"
+}
