@@ -1,0 +1,31 @@
+# Maintainer: 4shen0ne <4shen.01@gmail.com>
+
+pkgname=godzilla
+pkgver=4.0.1
+pkgrel=1
+pkgdesc="哥斯拉"
+url="https://github.com/BeichenDream/Godzilla"
+depends=('java-runtime>=8')
+provides=('godzilla')
+conflicts=('godzilla')
+arch=('any')
+license=('unknown')
+source=("https://github.com/BeichenDream/Godzilla/releases/download/v4.0.1-godzilla/godzilla.jar")
+noextract=("godzilla.jar")
+sha256sums=('62b7eff31d339fd04e6d39aba47b5f37b1b6feb27f85c3c71e4d2d600e8142c6')
+
+package() {
+  install -d "${pkgdir}/usr/bin"
+  install -d -m777 "${pkgdir}/opt/${pkgname}"
+
+  cd ${srcdir}
+  install -m644 godzilla.jar ${pkgdir}/opt/${pkgname}/
+
+  cat > "${pkgdir}/usr/bin/${pkgname}" <<EOF
+#!/bin/sh
+cd /opt/${pkgname}
+GDK_SCALE=2 java -jar godzilla.jar
+EOF
+
+  chmod 755 "${pkgdir}/usr/bin/${pkgname}"
+}
