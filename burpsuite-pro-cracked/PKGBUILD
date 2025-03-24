@@ -3,7 +3,7 @@
 pkgname=burpsuite-pro-cracked
 _appname=burpsuite
 # https://portswigger.net/burp/releases#professional
-pkgver=2024.9.5
+pkgver=2025.1.4
 pkgrel=1
 pkgdesc="An integrated platform for performing security testing of web applications (professional edition)"
 url="https://portswigger.net/burp/"
@@ -23,7 +23,7 @@ source=(
   LICENSE
 )
 sha256sums=(
-  'f28ad861b880a96a2f7344cc6a4f2fc693b1e53ff7103405f641cda0fc3d6024'
+  '3695aaadd51ac4fbd4e0ed8ca652d345f9ea381db20bfcd0271ee8f6cb632825'
   '1e288c686963eafc34411d4f94265eb1809492ab57a474848669eb3285a2afb3'
   '2d7e8febf1a39c73403f2b4698b7194bf5b7b09d99b22c17b95dea22efef85ff'
   '6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e'
